@@ -135,8 +135,12 @@ public class HeapFile implements DbFile {
     public List<Page> insertTuple(TransactionId tid, Tuple t)
             throws DbException, IOException, TransactionAbortedException {
         // some code goes here
-        return null;
         // not necessary for lab1
+        RecordId rid = t.getRecordId();
+        PageId pid = rid.getPageId();
+        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid ,pid, Permissions.READ_WRITE);
+        page.insertTuple(t);
+        return null;
     }
 
     // see DbFile.java for javadocs

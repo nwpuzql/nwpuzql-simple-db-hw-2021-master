@@ -4,10 +4,13 @@ import simpledb.common.Database;
 import simpledb.common.DbException;
 import simpledb.common.Debug;
 import simpledb.common.Catalog;
+import simpledb.transaction.TransactionAbortedException;
 import simpledb.transaction.TransactionId;
 
 import java.util.*;
 import java.io.*;
+
+import static simpledb.common.Permissions.READ_WRITE;
 
 /**
  * Each instance of HeapPage stores data for one page of HeapFiles and
@@ -259,6 +262,13 @@ public class HeapPage implements Page {
     public void deleteTuple(Tuple t) throws DbException {
         // some code goes here
         // not necessary for lab1
+        RecordId rid = t.getRecordId();
+        PageId pid = rid.getPageId();
+        int slotNum = rid.getTupleNumber();
+        if (!this.pid.equals(pid) || !isSlotUsed(slotNum)) {  // 如果pid不相等或者槽位已经是空
+            throw new DbException("tuple is not on this page, or tuple slot is already empty.");
+        }
+        markSlotUsed(slotNum, false);  // 设置槽位为空即删除
     }
 
     /**
@@ -272,6 +282,12 @@ public class HeapPage implements Page {
     public void insertTuple(Tuple t) throws DbException {
         // some code goes here
         // not necessary for lab1
+        int slotPos = getNumEmptySlots();  // 寻找空闲的槽位位置
+        TupleDesc tupleTd = t.getTupleDesc();
+        if(slotPos == numSlots || this.td.equals(tupleTd)) {
+            throw new DbException("the page is full (no empty slots) or tupleDesc is mismatch.");
+        }
+        tuples[slotPos] = t;
     }
 
     /**
@@ -322,6 +338,15 @@ public class HeapPage implements Page {
     private void markSlotUsed(int i, boolean value) {
         // some code goes here
         // not necessary for lab1
+        int byteIndex = i / 8;
+        int bitOffset = i % 8;
+        if (value) {
+            // Set the bit to 1
+            header[byteIndex] = (byte) (header[byteIndex] | (1 << bitOffset));
+        } else {
+            // Set the bit to 0
+            header[byteIndex] = (byte) (header[byteIndex] & ~(1 << bitOffset));
+        }
     }
 
     /**
