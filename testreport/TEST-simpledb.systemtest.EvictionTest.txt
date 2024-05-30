@@ -1,0 +1,14 @@
+Testsuite: simpledb.systemtest.EvictionTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.699 sec
+------------- Standard Output ---------------
+EvictionTest creating large table
+EvictionTest scanning large table
+------------- ---------------- ---------------
+
+Testcase: testHeapFileScanWithManyPages took 0.624 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.EvictionTest.testHeapFileScanWithManyPages(EvictionTest.java:38)
+

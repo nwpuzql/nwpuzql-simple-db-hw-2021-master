@@ -1,0 +1,27 @@
+Testsuite: simpledb.systemtest.JoinTest
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.339 sec
+
+Testcase: testMultipleMatch took 0.234 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.JoinTest.validateJoin(JoinTest.java:55)
+	at simpledb.systemtest.JoinTest.testMultipleMatch(JoinTest.java:79)
+
+Testcase: testNoMatch took 0.004 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.JoinTest.validateJoin(JoinTest.java:55)
+	at simpledb.systemtest.JoinTest.testNoMatch(JoinTest.java:74)
+
+Testcase: testSingleMatch took 0.003 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.JoinTest.validateJoin(JoinTest.java:55)
+	at simpledb.systemtest.JoinTest.testSingleMatch(JoinTest.java:69)
+

@@ -1,0 +1,11 @@
+Testsuite: simpledb.systemtest.AbortEvictionTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.485 sec
+
+Testcase: testDoNotEvictDirtyPages took 0.381 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AbortEvictionTest.insertRow(AbortEvictionTest.java:33)
+	at simpledb.systemtest.AbortEvictionTest.testDoNotEvictDirtyPages(AbortEvictionTest.java:77)
+

@@ -1,0 +1,47 @@
+Testsuite: simpledb.FilterTest
+Tests run: 6, Failures: 1, Errors: 5, Skipped: 0, Time elapsed: 0.095 sec
+
+Testcase: getTupleDesc took 0.011 sec
+	Caused an ERROR
+expected:<(INT_TYPE),(INT_TYPE),(INT_TYPE)> but was:<null>
+java.lang.AssertionError: expected:<(INT_TYPE),(INT_TYPE),(INT_TYPE)> but was:<null>
+	at simpledb.FilterTest.getTupleDesc(FilterTest.java:39)
+
+Testcase: filterSomeLessThan took 0.001 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.compareDbIterators(TestUtil.java:113)
+	at simpledb.FilterTest.filterSomeLessThan(FilterTest.java:70)
+
+Testcase: rewind took 0 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.FilterTest.rewind(FilterTest.java:49)
+
+Testcase: filterEqual took 0.001 sec
+	Caused an ERROR
+null
+java.util.NoSuchElementException
+	at simpledb.execution.Operator.next(Operator.java:33)
+	at simpledb.FilterTest.filterEqual(FilterTest.java:97)
+
+Testcase: filterEqualNoTuples took 0 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.checkExhausted(TestUtil.java:160)
+	at simpledb.FilterTest.filterEqualNoTuples(FilterTest.java:125)
+
+Testcase: filterAllLessThan took 0 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.checkExhausted(TestUtil.java:160)
+	at simpledb.FilterTest.filterAllLessThan(FilterTest.java:83)
+

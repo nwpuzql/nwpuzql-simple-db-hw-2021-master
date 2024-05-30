@@ -1,0 +1,27 @@
+Testsuite: simpledb.TableStatsTest
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.46 sec
+
+Testcase: estimateScanCostTest took 0.286 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.TableStatsTest.setUp(TableStatsTest.java:37)
+
+Testcase: estimateTableCardinalityTest took 0.057 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.TableStatsTest.setUp(TableStatsTest.java:37)
+
+Testcase: estimateSelectivityTest took 0.042 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.TableStatsTest.setUp(TableStatsTest.java:37)
+

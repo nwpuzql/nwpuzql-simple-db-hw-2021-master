@@ -1,0 +1,17 @@
+Testsuite: simpledb.StringAggregatorTest
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.086 sec
+
+Testcase: mergeCount took 0.013 sec
+	Caused an ERROR
+please implement me for lab2
+java.lang.UnsupportedOperationException: please implement me for lab2
+	at simpledb.execution.StringAggregator.iterator(StringAggregator.java:44)
+	at simpledb.StringAggregatorTest.mergeCount(StringAggregatorTest.java:54)
+
+Testcase: testIterator took 0.001 sec
+	Caused an ERROR
+please implement me for lab2
+java.lang.UnsupportedOperationException: please implement me for lab2
+	at simpledb.execution.StringAggregator.iterator(StringAggregator.java:44)
+	at simpledb.StringAggregatorTest.testIterator(StringAggregatorTest.java:74)
+

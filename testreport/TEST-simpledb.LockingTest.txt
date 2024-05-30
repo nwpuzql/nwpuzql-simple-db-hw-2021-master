@@ -1,0 +1,84 @@
+Testsuite: simpledb.LockingTest
+Tests run: 9, Failures: 0, Errors: 9, Skipped: 0, Time elapsed: 0.314 sec
+
+Testcase: acquireWriteReadLocksOnSamePage took 0.228 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireReadLocksOnTwoPages took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireReadLocksOnSamePage took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireReadWriteLocksOnTwoPages took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: lockUpgrade took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireReadWriteLocksOnSamePage took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireThenRelease took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireWriteAndReadLocks took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+
+Testcase: acquireWriteLocksOnTwoPages took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.LockingTest.setUp(LockingTest.java:31)
+

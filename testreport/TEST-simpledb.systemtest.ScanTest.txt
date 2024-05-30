@@ -1,0 +1,36 @@
+Testsuite: simpledb.systemtest.ScanTest
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.349 sec
+
+Testcase: testTupleDesc took 0.229 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.ScanTest.testTupleDesc(ScanTest.java:122)
+
+Testcase: testCache took 0.039 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.SystemTestUtil.matchTuples(SystemTestUtil.java:111)
+	at simpledb.systemtest.SystemTestUtil.matchTuples(SystemTestUtil.java:105)
+	at simpledb.systemtest.ScanTest.testCache(ScanTest.java:104)
+
+Testcase: testSmall took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.SystemTestUtil.matchTuples(SystemTestUtil.java:111)
+	at simpledb.systemtest.SystemTestUtil.matchTuples(SystemTestUtil.java:105)
+	at simpledb.systemtest.ScanTest.validateScan(ScanTest.java:38)
+	at simpledb.systemtest.ScanTest.testSmall(ScanTest.java:49)
+
+Testcase: testRewind took 0.004 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.ScanTest.testRewind(ScanTest.java:58)
+

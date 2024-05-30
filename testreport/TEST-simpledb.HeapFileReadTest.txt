@@ -1,0 +1,42 @@
+Testsuite: simpledb.HeapFileReadTest
+Tests run: 6, Failures: 1, Errors: 5, Skipped: 0, Time elapsed: 0.32 sec
+
+Testcase: getTupleDesc took 0.215 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getTupleDesc(HeapFile.java:67)
+	at simpledb.HeapFileReadTest.getTupleDesc(HeapFileReadTest.java:58)
+
+Testcase: numPages took 0.002 sec
+	Caused an ERROR
+expected:<1> but was:<0>
+java.lang.AssertionError: expected:<1> but was:<0>
+	at simpledb.HeapFileReadTest.numPages(HeapFileReadTest.java:65)
+
+Testcase: readPage took 0.003 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.HeapFileReadTest.readPage(HeapFileReadTest.java:74)
+
+Testcase: getId took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.HeapFileReadTest.getId(HeapFileReadTest.java:43)
+
+Testcase: testIteratorBasic took 0.004 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.HeapFileReadTest.testIteratorBasic(HeapFileReadTest.java:91)
+
+Testcase: testIteratorClose took 0.005 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.HeapFileReadTest.testIteratorClose(HeapFileReadTest.java:116)
+

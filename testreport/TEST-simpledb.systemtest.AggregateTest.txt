@@ -1,0 +1,57 @@
+Testsuite: simpledb.systemtest.AggregateTest
+Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.406 sec
+
+Testcase: testAverageNoGroup took 0.258 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AggregateTest.validateAggregate(AggregateTest.java:24)
+	at simpledb.systemtest.AggregateTest.doAggregate(AggregateTest.java:96)
+	at simpledb.systemtest.AggregateTest.testAverageNoGroup(AggregateTest.java:121)
+
+Testcase: testMax took 0.008 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AggregateTest.validateAggregate(AggregateTest.java:24)
+	at simpledb.systemtest.AggregateTest.doAggregate(AggregateTest.java:96)
+	at simpledb.systemtest.AggregateTest.testMax(AggregateTest.java:108)
+
+Testcase: testMin took 0.007 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AggregateTest.validateAggregate(AggregateTest.java:24)
+	at simpledb.systemtest.AggregateTest.doAggregate(AggregateTest.java:96)
+	at simpledb.systemtest.AggregateTest.testMin(AggregateTest.java:104)
+
+Testcase: testSum took 0.006 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AggregateTest.validateAggregate(AggregateTest.java:24)
+	at simpledb.systemtest.AggregateTest.doAggregate(AggregateTest.java:96)
+	at simpledb.systemtest.AggregateTest.testSum(AggregateTest.java:100)
+
+Testcase: testCount took 0.006 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AggregateTest.validateAggregate(AggregateTest.java:24)
+	at simpledb.systemtest.AggregateTest.doAggregate(AggregateTest.java:96)
+	at simpledb.systemtest.AggregateTest.testCount(AggregateTest.java:112)
+
+Testcase: testAverage took 0.006 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.AggregateTest.validateAggregate(AggregateTest.java:24)
+	at simpledb.systemtest.AggregateTest.doAggregate(AggregateTest.java:96)
+	at simpledb.systemtest.AggregateTest.testAverage(AggregateTest.java:116)
+

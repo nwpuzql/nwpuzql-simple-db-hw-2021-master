@@ -1,0 +1,64 @@
+Testsuite: simpledb.AggregateTest
+Tests run: 8, Failures: 1, Errors: 7, Skipped: 0, Time elapsed: 0.093 sec
+
+Testcase: getTupleDesc took 0.013 sec
+	Caused an ERROR
+expected:<(INT_TYPE),(INT_TYPE)> but was:<null>
+java.lang.AssertionError: expected:<(INT_TYPE),(INT_TYPE)> but was:<null>
+	at simpledb.AggregateTest.getTupleDesc(AggregateTest.java:100)
+
+Testcase: maxAggregate took 0 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.matchAllTuples(TestUtil.java:140)
+	at simpledb.AggregateTest.maxAggregate(AggregateTest.java:180)
+
+Testcase: rewind took 0.001 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.AggregateTest.rewind(AggregateTest.java:118)
+
+Testcase: minAggregate took 0.001 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.matchAllTuples(TestUtil.java:140)
+	at simpledb.AggregateTest.minAggregate(AggregateTest.java:191)
+
+Testcase: sumStringGroupBy took 0.001 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.matchAllTuples(TestUtil.java:140)
+	at simpledb.AggregateTest.sumStringGroupBy(AggregateTest.java:147)
+
+Testcase: sumAggregate took 0.001 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.matchAllTuples(TestUtil.java:140)
+	at simpledb.AggregateTest.sumAggregate(AggregateTest.java:158)
+
+Testcase: countStringAggregate took 0 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.matchAllTuples(TestUtil.java:140)
+	at simpledb.AggregateTest.countStringAggregate(AggregateTest.java:136)
+
+Testcase: avgAggregate took 0 sec
+	Caused an ERROR
+Operator not yet open
+java.lang.IllegalStateException: Operator not yet open
+	at simpledb.execution.Operator.hasNext(Operator.java:21)
+	at simpledb.TestUtil.matchAllTuples(TestUtil.java:140)
+	at simpledb.AggregateTest.avgAggregate(AggregateTest.java:169)
+

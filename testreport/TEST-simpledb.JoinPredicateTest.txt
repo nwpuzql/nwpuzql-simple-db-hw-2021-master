@@ -1,0 +1,9 @@
+Testsuite: simpledb.JoinPredicateTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.088 sec
+
+Testcase: filterVaryingVals took 0.014 sec
+	Caused an ERROR
+null
+java.lang.AssertionError
+	at simpledb.JoinPredicateTest.filterVaryingVals(JoinPredicateTest.java:25)
+

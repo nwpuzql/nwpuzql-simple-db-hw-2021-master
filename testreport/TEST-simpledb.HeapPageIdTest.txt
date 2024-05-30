@@ -1,0 +1,31 @@
+Testsuite: simpledb.HeapPageIdTest
+Tests run: 4, Failures: 2, Errors: 2, Skipped: 0, Time elapsed: 0.11 sec
+
+Testcase: equals took 0.01 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapPageId.hashCode(HeapPageId.java:40)
+	at java.lang.Object.toString(Object.java:236)
+	at java.lang.String.valueOf(String.java:2994)
+	at simpledb.HeapPageIdTest.equals(HeapPageIdTest.java:68)
+
+Testcase: pageno took 0.001 sec
+	Caused an ERROR
+expected:<1> but was:<0>
+java.lang.AssertionError: expected:<1> but was:<0>
+	at simpledb.HeapPageIdTest.pageno(HeapPageIdTest.java:32)
+
+Testcase: getTableId took 0.001 sec
+	Caused an ERROR
+expected:<1> but was:<0>
+java.lang.AssertionError: expected:<1> but was:<0>
+	at simpledb.HeapPageIdTest.getTableId(HeapPageIdTest.java:25)
+
+Testcase: testHashCode took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapPageId.hashCode(HeapPageId.java:40)
+	at simpledb.HeapPageIdTest.testHashCode(HeapPageIdTest.java:44)
+

@@ -1,0 +1,93 @@
+Testsuite: simpledb.systemtest.LogTest
+Tests run: 10, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 0.326 sec
+
+Testcase: TestCommitAbortCommitCrash took 0.217 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestCommitAbortCommitCrash(LogTest.java:285)
+
+Testcase: TestOpenCrash took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestOpenCrash(LogTest.java:325)
+
+Testcase: TestFlushAll took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestFlushAll(LogTest.java:165)
+
+Testcase: TestCommitCrash took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestCommitCrash(LogTest.java:184)
+
+Testcase: TestOpenCommitOpenCrash took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestOpenCommitOpenCrash(LogTest.java:351)
+
+Testcase: TestAbort took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestAbort(LogTest.java:203)
+
+Testcase: TestAbortCommitInterleaved took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestAbortCommitInterleaved(LogTest.java:223)
+
+Testcase: TestOpenCommitCheckpointOpenCrash took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestOpenCommitCheckpointOpenCrash(LogTest.java:392)
+
+Testcase: TestAbortCrash took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.TestAbortCrash(LogTest.java:256)
+
+Testcase: PatchTest took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.systemtest.LogTest.setup(LogTest.java:133)
+	at simpledb.systemtest.LogTest.PatchTest(LogTest.java:139)
+

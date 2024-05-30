@@ -1,0 +1,34 @@
+Testsuite: simpledb.BTreeInternalPageTest
+Tests run: 11, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.304 sec
+
+Testcase: addEntry took 0.217 sec
+	Caused an ERROR
+null
+java.lang.AssertionError
+	at simpledb.BTreeInternalPageTest.addEntry(BTreeInternalPageTest.java:267)
+
+Testcase: testDirty took 0.001 sec
+Testcase: deleteEntry took 0.001 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.index.BTreeInternalPage.deleteEntry(BTreeInternalPage.java:355)
+	at simpledb.index.BTreeInternalPage.deleteKeyAndRightChild(BTreeInternalPage.java:384)
+	at simpledb.BTreeInternalPageTest.deleteEntry(BTreeInternalPageTest.java:309)
+
+Testcase: setParentId took 0 sec
+Testcase: getParentId took 0.001 sec
+Testcase: testReverseIterator took 0.001 sec
+Testcase: getSlot took 0.001 sec
+Testcase: getId took 0.001 sec
+Testcase: deleteNonexistentEntry took 0.001 sec
+	Caused an ERROR
+Unexpected exception, expected<simpledb.common.DbException> but was<java.lang.NullPointerException>
+java.lang.Exception: Unexpected exception, expected<simpledb.common.DbException> but was<java.lang.NullPointerException>
+Caused by: java.lang.NullPointerException
+	at simpledb.index.BTreeInternalPage.deleteEntry(BTreeInternalPage.java:355)
+	at simpledb.index.BTreeInternalPage.deleteKeyAndRightChild(BTreeInternalPage.java:384)
+	at simpledb.BTreeInternalPageTest.deleteNonexistentEntry(BTreeInternalPageTest.java:289)
+
+Testcase: getNumEmptySlots took 0.001 sec
+Testcase: testIterator took 0.001 sec

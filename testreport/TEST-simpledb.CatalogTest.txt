@@ -1,0 +1,13 @@
+Testsuite: simpledb.CatalogTest
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.098 sec
+
+Testcase: getTupleDesc took 0.01 sec
+Testcase: getTableId took 0.001 sec
+Testcase: handleDuplicateIds took 0.006 sec
+	Caused an ERROR
+expected:<[1e36552c-7b6e-4e95-9231-7c1ab468343e]> but was:<[361096b1-c80d-4b26-9952-b801b938b0cf]>
+org.junit.ComparisonFailure: expected:<[1e36552c-7b6e-4e95-9231-7c1ab468343e]> but was:<[361096b1-c80d-4b26-9952-b801b938b0cf]>
+	at simpledb.CatalogTest.handleDuplicateIds(CatalogTest.java:96)
+
+Testcase: getDatabaseFile took 0.001 sec
+Testcase: handleDuplicateNames took 0 sec

@@ -1,0 +1,35 @@
+Testsuite: simpledb.systemtest.InsertTest
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.313 sec
+
+Testcase: testOneToEmpty took 0.224 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.InsertTest.validateInsert(InsertTest.java:34)
+	at simpledb.systemtest.InsertTest.testOneToEmpty(InsertTest.java:72)
+
+Testcase: testEmptyToOne took 0.004 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.InsertTest.validateInsert(InsertTest.java:34)
+	at simpledb.systemtest.InsertTest.testEmptyToOne(InsertTest.java:67)
+
+Testcase: testOneToOne took 0.003 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.InsertTest.validateInsert(InsertTest.java:34)
+	at simpledb.systemtest.InsertTest.testOneToOne(InsertTest.java:77)
+
+Testcase: testEmptyToEmpty took 0.003 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.InsertTest.validateInsert(InsertTest.java:34)
+	at simpledb.systemtest.InsertTest.testEmptyToEmpty(InsertTest.java:62)
+

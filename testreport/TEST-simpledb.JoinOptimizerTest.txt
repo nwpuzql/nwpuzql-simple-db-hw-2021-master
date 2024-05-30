@@ -1,0 +1,43 @@
+Testsuite: simpledb.JoinOptimizerTest
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.364 sec
+
+Testcase: estimateJoinCardinality took 0.247 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.JoinOptimizerTest.setUp(JoinOptimizerTest.java:79)
+
+Testcase: nonequalityOrderJoinsTest took 0.009 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.JoinOptimizerTest.setUp(JoinOptimizerTest.java:79)
+
+Testcase: orderJoinsTest took 0.01 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.JoinOptimizerTest.setUp(JoinOptimizerTest.java:79)
+
+Testcase: estimateJoinCostTest took 0.007 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.JoinOptimizerTest.setUp(JoinOptimizerTest.java:79)
+
+Testcase: bigOrderJoinsTest took 0.012 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.JoinOptimizerTest.setUp(JoinOptimizerTest.java:79)
+

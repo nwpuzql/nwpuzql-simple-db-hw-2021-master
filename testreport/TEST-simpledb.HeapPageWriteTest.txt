@@ -1,0 +1,36 @@
+Testsuite: simpledb.HeapPageWriteTest
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.309 sec
+
+Testcase: addTuple took 0.226 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageWriteTest.addTuple(HeapPageWriteTest.java:56)
+
+Testcase: testDirty took 0.002 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageWriteTest.testDirty(HeapPageWriteTest.java:41)
+
+Testcase: deleteTuple took 0.001 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageWriteTest.deleteTuple(HeapPageWriteTest.java:106)
+
+Testcase: deleteNonexistentTuple took 0 sec
+	Caused an ERROR
+Unexpected exception, expected<simpledb.common.DbException> but was<java.util.NoSuchElementException>
+java.lang.Exception: Unexpected exception, expected<simpledb.common.DbException> but was<java.util.NoSuchElementException>
+Caused by: java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageWriteTest.deleteNonexistentTuple(HeapPageWriteTest.java:98)
+

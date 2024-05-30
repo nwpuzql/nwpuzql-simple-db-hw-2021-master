@@ -1,0 +1,32 @@
+Testsuite: simpledb.RecordIdTest
+Tests run: 4, Failures: 1, Errors: 3, Skipped: 0, Time elapsed: 0.086 sec
+
+Testcase: equals took 0.009 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.RecordId.equals(RecordId.java:51)
+	at simpledb.RecordIdTest.equals(RecordIdTest.java:52)
+
+Testcase: tupleno took 0.001 sec
+	Caused an ERROR
+expected:<3> but was:<0>
+java.lang.AssertionError: expected:<3> but was:<0>
+	at simpledb.RecordIdTest.tupleno(RecordIdTest.java:45)
+
+Testcase: hCode took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.RecordId.hashCode(RecordId.java:63)
+	at simpledb.RecordIdTest.hCode(RecordIdTest.java:64)
+
+Testcase: getPageId took 0.001 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapPageId.hashCode(HeapPageId.java:40)
+	at java.lang.Object.toString(Object.java:236)
+	at java.lang.String.valueOf(String.java:2994)
+	at simpledb.RecordIdTest.getPageId(RecordIdTest.java:37)
+

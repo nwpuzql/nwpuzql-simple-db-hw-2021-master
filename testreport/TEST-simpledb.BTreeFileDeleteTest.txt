@@ -1,0 +1,52 @@
+Testsuite: simpledb.BTreeFileDeleteTest
+Tests run: 7, Failures: 4, Errors: 3, Skipped: 0, Time elapsed: 0.336 sec
+
+Testcase: deleteTuple took 0.214 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:211)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:181)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:160)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:122)
+	at simpledb.BTreeFileDeleteTest.deleteTuple(BTreeFileDeleteTest.java:41)
+
+Testcase: testStealFromLeftInternalPage took 0.012 sec
+	Caused an ERROR
+null
+java.lang.AssertionError
+	at simpledb.BTreeFileDeleteTest.testStealFromLeftInternalPage(BTreeFileDeleteTest.java:228)
+
+Testcase: testStealFromRightLeafPage took 0.008 sec
+	Caused an ERROR
+null
+java.lang.AssertionError
+	at simpledb.BTreeFileDeleteTest.testStealFromRightLeafPage(BTreeFileDeleteTest.java:131)
+
+Testcase: testStealFromRightInternalPage took 0.005 sec
+	Caused an ERROR
+null
+java.lang.AssertionError
+	at simpledb.BTreeFileDeleteTest.testStealFromRightInternalPage(BTreeFileDeleteTest.java:294)
+
+Testcase: testStealFromLeftLeafPage took 0.006 sec
+	Caused an ERROR
+null
+java.lang.AssertionError
+	at simpledb.BTreeFileDeleteTest.testStealFromLeftLeafPage(BTreeFileDeleteTest.java:92)
+
+Testcase: testMergeLeafPages took 0.004 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.index.BTreeInternalPage.updateEntry(BTreeInternalPage.java:412)
+	at simpledb.BTreeFileDeleteTest.testMergeLeafPages(BTreeFileDeleteTest.java:163)
+
+Testcase: testMergeInternalPages took 0.007 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.index.BTreeInternalPage.updateEntry(BTreeInternalPage.java:412)
+	at simpledb.BTreeFileDeleteTest.testMergeInternalPages(BTreeFileDeleteTest.java:345)
+

@@ -1,0 +1,21 @@
+Testsuite: simpledb.InsertTest
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.292 sec
+
+Testcase: getTupleDesc took 0.217 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.InsertTest.setUp(InsertTest.java:28)
+
+Testcase: getNext took 0.002 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Utility.createEmptyHeapFile(Utility.java:114)
+	at simpledb.TestUtil$CreateHeapFile.setUp(TestUtil.java:386)
+	at simpledb.InsertTest.setUp(InsertTest.java:28)
+

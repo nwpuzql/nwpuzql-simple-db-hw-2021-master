@@ -1,0 +1,13 @@
+Testsuite: simpledb.systemtest.QueryTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.934 sec
+
+Testcase: queryTest took 0.861 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.common.Catalog.getTableId(Catalog.java:78)
+	at simpledb.systemtest.QueryTest.queryTest(QueryTest.java:64)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.lang.Thread.run(Thread.java:750)
+

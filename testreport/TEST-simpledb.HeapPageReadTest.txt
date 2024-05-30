@@ -1,0 +1,35 @@
+Testsuite: simpledb.HeapPageReadTest
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.083 sec
+
+Testcase: getSlot took 0.011 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageReadTest.getSlot(HeapPageReadTest.java:117)
+
+Testcase: getId took 0.001 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageReadTest.getId(HeapPageReadTest.java:82)
+
+Testcase: getNumEmptySlots took 0 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageReadTest.getNumEmptySlots(HeapPageReadTest.java:109)
+
+Testcase: testIterator took 0 sec
+	Caused an ERROR
+TableID: 0's TupleDesc not found
+java.util.NoSuchElementException: TableID: 0's TupleDesc not found
+	at simpledb.common.Catalog.getTupleDesc(Catalog.java:98)
+	at simpledb.storage.HeapPage.<init>(HeapPage.java:49)
+	at simpledb.HeapPageReadTest.testIterator(HeapPageReadTest.java:90)
+

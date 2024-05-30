@@ -1,0 +1,35 @@
+Testsuite: simpledb.BTreeLeafPageTest
+Tests run: 14, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.321 sec
+
+Testcase: setLeftSiblingId took 0.212 sec
+Testcase: addTuple took 0.008 sec
+	Caused an ERROR
+expected:<(tableId: -1, pgNo: -1, pgcateg: LEAF)> but was:<null>
+java.lang.AssertionError: expected:<(tableId: -1, pgNo: -1, pgcateg: LEAF)> but was:<null>
+	at simpledb.BTreeLeafPageTest.addTuple(BTreeLeafPageTest.java:293)
+
+Testcase: testDirty took 0.001 sec
+Testcase: deleteTuple took 0.002 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.index.BTreeLeafPage.deleteTuple(BTreeLeafPage.java:296)
+	at simpledb.BTreeLeafPageTest.deleteTuple(BTreeLeafPageTest.java:335)
+
+Testcase: setParentId took 0.001 sec
+Testcase: getParentId took 0.001 sec
+Testcase: getSlot took 0.001 sec
+Testcase: getId took 0.001 sec
+Testcase: setRightSiblingId took 0 sec
+Testcase: getLeftSiblingId took 0.001 sec
+Testcase: deleteNonexistentTuple took 0.001 sec
+	Caused an ERROR
+Unexpected exception, expected<simpledb.common.DbException> but was<java.lang.NullPointerException>
+java.lang.Exception: Unexpected exception, expected<simpledb.common.DbException> but was<java.lang.NullPointerException>
+Caused by: java.lang.NullPointerException
+	at simpledb.index.BTreeLeafPage.deleteTuple(BTreeLeafPage.java:296)
+	at simpledb.BTreeLeafPageTest.deleteNonexistentTuple(BTreeLeafPageTest.java:315)
+
+Testcase: getRightSiblingId took 0.001 sec
+Testcase: getNumEmptySlots took 0.001 sec
+Testcase: testIterator took 0.001 sec

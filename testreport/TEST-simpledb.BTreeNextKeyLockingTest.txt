@@ -1,0 +1,25 @@
+Testsuite: simpledb.BTreeNextKeyLockingTest
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.409 sec
+
+Testcase: nextKeyLockingTestLessThan took 0.296 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:211)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:181)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:160)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:122)
+	at simpledb.BTreeNextKeyLockingTest.nextKeyLockingTestLessThan(BTreeNextKeyLockingTest.java:46)
+
+Testcase: nextKeyLockingTestGreaterThan took 0.038 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:211)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:181)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:160)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:122)
+	at simpledb.BTreeNextKeyLockingTest.nextKeyLockingTestGreaterThan(BTreeNextKeyLockingTest.java:148)
+

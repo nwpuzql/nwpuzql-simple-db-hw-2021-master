@@ -1,0 +1,53 @@
+Testsuite: simpledb.systemtest.FilterTest
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.325 sec
+
+Testcase: testLessThan took 0.222 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.FilterTest.applyPredicate(FilterTest.java:17)
+	at simpledb.systemtest.FilterBase.runTransactionForPredicate(FilterBase.java:38)
+	at simpledb.systemtest.FilterBase.validatePredicate(FilterBase.java:48)
+	at simpledb.systemtest.FilterBase.testLessThan(FilterBase.java:76)
+
+Testcase: testLessThanOrEq took 0.009 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.FilterTest.applyPredicate(FilterTest.java:17)
+	at simpledb.systemtest.FilterBase.runTransactionForPredicate(FilterBase.java:38)
+	at simpledb.systemtest.FilterBase.validatePredicate(FilterBase.java:48)
+	at simpledb.systemtest.FilterBase.testLessThanOrEq(FilterBase.java:81)
+
+Testcase: testGreaterThanOrEq took 0.005 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.FilterTest.applyPredicate(FilterTest.java:17)
+	at simpledb.systemtest.FilterBase.runTransactionForPredicate(FilterBase.java:38)
+	at simpledb.systemtest.FilterBase.validatePredicate(FilterBase.java:48)
+	at simpledb.systemtest.FilterBase.testGreaterThanOrEq(FilterBase.java:91)
+
+Testcase: testGreaterThan took 0.007 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.FilterTest.applyPredicate(FilterTest.java:17)
+	at simpledb.systemtest.FilterBase.runTransactionForPredicate(FilterBase.java:38)
+	at simpledb.systemtest.FilterBase.validatePredicate(FilterBase.java:48)
+	at simpledb.systemtest.FilterBase.testGreaterThan(FilterBase.java:86)
+
+Testcase: testEquals took 0.005 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.systemtest.FilterTest.applyPredicate(FilterTest.java:17)
+	at simpledb.systemtest.FilterBase.runTransactionForPredicate(FilterBase.java:38)
+	at simpledb.systemtest.FilterBase.validatePredicate(FilterBase.java:48)
+	at simpledb.systemtest.FilterBase.testEquals(FilterBase.java:71)
+

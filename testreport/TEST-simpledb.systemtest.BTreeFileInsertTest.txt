@@ -1,0 +1,50 @@
+Testsuite: simpledb.systemtest.BTreeFileInsertTest
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.615 sec
+
+Testcase: testSplitLeafPage took 0.229 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:211)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:181)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:160)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:122)
+	at simpledb.systemtest.BTreeFileInsertTest.testSplitLeafPage(BTreeFileInsertTest.java:141)
+
+Testcase: addTuple took 0.006 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.index.BTreeFile.insertTuple(BTreeFile.java:432)
+	at simpledb.systemtest.BTreeFileInsertTest.addTuple(BTreeFileInsertTest.java:55)
+
+Testcase: testSplitInternalPage took 0.052 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:211)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:181)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:160)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:122)
+	at simpledb.systemtest.BTreeFileInsertTest.testSplitInternalPage(BTreeFileInsertTest.java:240)
+
+Testcase: addDuplicateTuples took 0.002 sec
+	Caused an ERROR
+null
+java.lang.NullPointerException
+	at simpledb.index.BTreeChecker.checkRep(BTreeChecker.java:73)
+	at simpledb.systemtest.BTreeFileInsertTest.addDuplicateTuples(BTreeFileInsertTest.java:93)
+
+Testcase: testSplitRootPage took 0.249 sec
+	Caused an ERROR
+implement this
+java.lang.UnsupportedOperationException: implement this
+	at simpledb.storage.HeapFile.getId(HeapFile.java:57)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:211)
+	at simpledb.index.BTreeFileEncoder.convert(BTreeFileEncoder.java:181)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:160)
+	at simpledb.index.BTreeUtility.createRandomBTreeFile(BTreeUtility.java:122)
+	at simpledb.systemtest.BTreeFileInsertTest.testSplitRootPage(BTreeFileInsertTest.java:177)
+
