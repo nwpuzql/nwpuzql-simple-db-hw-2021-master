@@ -24,6 +24,8 @@ public class StringAggregator implements Aggregator {
     private int afield;
     private Op op;
     private Map<Field, Integer> aggregates;
+    private TupleDesc td = null;
+
 
     /**
      * Aggregate constructor
@@ -45,6 +47,11 @@ public class StringAggregator implements Aggregator {
             throw new IllegalArgumentException("StringAggregator OP != COUNT");
         }
         this.aggregates = new HashMap<Field, Integer>();
+        if (gbfield == NO_GROUPING && type == null) {  // 没有group by子句，tuple和tupleDesc都只有一个字段
+            td = new TupleDesc(new Type[]{Type.INT_TYPE});
+        } else {
+            td = new TupleDesc(new Type[]{type, Type.INT_TYPE});
+        }
     }
 
     /**
@@ -80,12 +87,6 @@ public class StringAggregator implements Aggregator {
      * aggregate specified in the constructor.
      */
     public OpIterator iterator() {
-        TupleDesc td = null;
-        if (gbfield == NO_GROUPING && type == null) {  // 没有group by子句，tuple和tupleDesc都只有一个字段
-            td = new TupleDesc(new Type[]{Type.INT_TYPE});
-        } else {
-            td = new TupleDesc(new Type[]{type, Type.INT_TYPE});
-        }
 
         // some code goes here
         TupleDesc finalTd = td;

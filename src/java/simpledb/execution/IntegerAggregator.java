@@ -24,6 +24,8 @@ public class IntegerAggregator implements Aggregator {
     private int afield;
     private Op op;
     private Map<Field, Integer> aggregates;
+    private Map<Field, Integer> cnt;  // 只在avg的时候使用，用以记录每组的个数
+    public TupleDesc td = null;
 
     /**
      * Aggregate constructor
@@ -43,6 +45,12 @@ public class IntegerAggregator implements Aggregator {
         this.afield = afield;
         this.op = what;
         this.aggregates = new HashMap<Field, Integer>();
+        this.cnt = new HashMap<Field, Integer>();
+        if (gbfield == NO_GROUPING && type == null) {  // 没有group by子句，tuple和tupleDesc都只有一个字段
+            td = new TupleDesc(new Type[]{Type.INT_TYPE});
+        } else {
+            td = new TupleDesc(new Type[]{type, Type.INT_TYPE});
+        }
     }
 
     /**
@@ -58,6 +66,7 @@ public class IntegerAggregator implements Aggregator {
         int newValue = ((IntField) af).getValue();
         if (!aggregates.containsKey(gbf)) {
             aggregates.put(gbf, newValue);
+            cnt.put(gbf, 1);
         } else {
             int aRes = aggregates.get(gbf);
             switch (this.op) {
@@ -76,9 +85,10 @@ public class IntegerAggregator implements Aggregator {
                     aggregates.put(gbf, newValue);
                     break;
                 case AVG:
-                    int cnt = aggregates.size();
-                    newValue = (cnt * aRes + newValue) / (cnt + 1);
+                    int n = cnt.get(gbf);  // 当前组的个数
+                    newValue = (n * aRes + newValue) / (n + 1);
                     aggregates.put(gbf, newValue);
+                    cnt.put(gbf, ++n);  // 组个数+1
                     break;
                 case COUNT:
                     newValue = aRes + 1;
@@ -101,12 +111,6 @@ public class IntegerAggregator implements Aggregator {
      * the constructor.
      */
     public OpIterator iterator() {
-        TupleDesc td = null;
-        if (gbfield == NO_GROUPING && type == null) {  // 没有group by子句，tuple和tupleDesc都只有一个字段
-            td = new TupleDesc(new Type[]{Type.INT_TYPE});
-        } else {
-            td = new TupleDesc(new Type[]{type, Type.INT_TYPE});
-        }
 
         // some code goes here
         TupleDesc finalTd = td;
