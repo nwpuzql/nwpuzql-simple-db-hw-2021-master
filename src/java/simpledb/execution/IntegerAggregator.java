@@ -55,33 +55,41 @@ public class IntegerAggregator implements Aggregator {
         // some code goes here
         Field gbf = tup.getField(this.gbfield);
         Field af = tup.getField(this.afield);
-        int aRes = aggregates.get(gbf);
         int newValue = ((IntField) af).getValue();
-        switch (this.op) {
-            case MIN:
-                if (newValue < aRes) {
+        if (!aggregates.containsKey(gbf)) {
+            aggregates.put(gbf, newValue);
+        } else {
+            int aRes = aggregates.get(gbf);
+            switch (this.op) {
+                case MIN:
+                    if (newValue < aRes) {
+                        aggregates.put(gbf, newValue);
+                    }
+                    break;
+                case MAX:
+                    if (newValue > aRes) {
+                        aggregates.put(gbf, newValue);
+                    }
+                    break;
+                case SUM:
+                    newValue += aRes;
                     aggregates.put(gbf, newValue);
-                }
-                break;
-            case MAX:
-                if (newValue > aRes) {
+                    break;
+                case AVG:
+                    int cnt = aggregates.size();
+                    newValue = (cnt * aRes + newValue) / (cnt + 1);
                     aggregates.put(gbf, newValue);
-                }
-                break;
-            case SUM:
-                newValue += aRes;
-                aggregates.put(gbf, newValue);
-                break;
-            case AVG:
-                int cnt = aggregates.size();
-                newValue = (cnt * aRes + newValue) / (cnt + 1);
-                aggregates.put(gbf, newValue);
-                break;
-            case COUNT:
-                newValue = aRes + 1;
-                aggregates.put(gbf, newValue);
-                break;
+                    break;
+                case COUNT:
+                    newValue = aRes + 1;
+                    aggregates.put(gbf, newValue);
+                    break;
+                default:
+                    throw new IllegalStateException("unknown op: " + this.op);
+            }
         }
+
+
     }
 
     /**
