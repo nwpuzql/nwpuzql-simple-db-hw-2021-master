@@ -171,7 +171,7 @@ public class BufferPool {
         DbFile file = Database.getCatalog().getDatabaseFile(tableId);
         List<Page> dirtyPages = file.insertTuple(tid, t);
         for (Page page : dirtyPages) {            // 对于插入操作影响的每一页
-            page.markDirty(true, tid);       // 更新dirty位
+            page.markDirty(true, tid);            // 更新dirty位
             if (this.pages.size() == numPages) {  // 检查当前缓冲池是否已满
                 this.evictPage();                 // 如果已满，则写回一页
             }
