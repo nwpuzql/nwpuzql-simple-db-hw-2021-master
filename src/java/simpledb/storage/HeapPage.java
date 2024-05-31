@@ -284,12 +284,19 @@ public class HeapPage implements Page {
     public void insertTuple(Tuple t) throws DbException {
         // some code goes here
         // not necessary for lab1
-        int slotPos = getNumEmptySlots();  // 寻找空闲的槽位位置
+        int slotPos = 0;  // 寻找第一个空闲的槽位位置
+        for (; slotPos < this.numSlots; slotPos++) {
+            if (!isSlotUsed(slotPos)) {
+                break;
+            }
+        }
         TupleDesc tupleTd = t.getTupleDesc();
-        if(slotPos == numSlots || this.td.equals(tupleTd)) {
+        if (slotPos == numSlots || !this.td.equals(tupleTd)) {
             throw new DbException("the page is full (no empty slots) or tupleDesc is mismatch.");
         }
         tuples[slotPos] = t;
+        markSlotUsed(slotPos, true);
+        t.setRecordId(new RecordId(this.pid, slotPos));  // 将tuple的rid更新
     }
 
     /**

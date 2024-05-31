@@ -97,7 +97,7 @@ public class Catalog {
      */
     public TupleDesc getTupleDesc(int tableid) throws NoSuchElementException {
         // some code goes here
-        for (DbFile file : nameToFileMap.values()) {
+        for (DbFile file : idToFileMap.values()) {
             if (file.getId() == tableid) {
                 return file.getTupleDesc();
             }

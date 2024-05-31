@@ -199,10 +199,6 @@ public class BufferPool {
         PageId pid = t.getRecordId().getPageId();
         int tableId = pid.getTableId();
         DbFile file = Database.getCatalog().getDatabaseFile(tableId);
-        if (this.pages.containsKey(pid)) {
-            HeapPage page = (HeapPage) pages.get(pid);
-            page.deleteTuple(t);                           // 将tuple从缓冲池删除
-        }
         List<Page> dirtyPages = file.deleteTuple(tid, t);  // 将tuple从表文件中删除
         for (Page page : dirtyPages) {                     // 对于删除操作影响的每一页
             page.markDirty(true, tid);               // 更新dirty位

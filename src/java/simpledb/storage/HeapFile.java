@@ -114,6 +114,34 @@ public class HeapFile implements DbFile {
     public void writePage(Page page) throws IOException {
         // some code goes here
         // not necessary for lab1
+        PageId pid = page.getId();
+        RandomAccessFile file = null;
+        try {
+            // 创建一个RandomAccessFile对象用于写入
+            file = new RandomAccessFile(this.file, "rw");
+
+            // 计算要写入的页面的起始位置
+            int position = pid.getPageNumber() * BufferPool.getPageSize();
+
+            // 将文件指针移动到起始位置
+            file.seek(position);
+
+            // 创建一个用于存放页面数据的字节数组
+            byte[] data = page.getPageData();
+
+            file.write(data);
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            // 确保文件被正确关闭
+            if (file != null) {
+                try {
+                    file.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -137,9 +165,26 @@ public class HeapFile implements DbFile {
         // some code goes here
         // not necessary for lab1
         RecordId rid = t.getRecordId();
-        PageId pid = rid.getPageId();
-        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid, pid, Permissions.READ_WRITE);
-        page.insertTuple(t);
+        int pageNo = rid.getPageId().getPageNumber();
+        PageId pid = new HeapPageId(this.getId(), pageNo);
+        HeapPageId newPid = null;
+        t.setRecordId(new RecordId(pid, rid.getTupleNumber()));  // 重新设置tuple的tableID为本文件的ID
+        // todo 如果tuple要插入的页面不存在，构造一个新页面
+        if (this.numPages() < pageNo) {
+            for (int i = this.numPages(); i <= pageNo; i++) {
+                newPid = new HeapPageId(this.getId(), i);
+                Page newPage = new HeapPage(newPid, HeapPage.createEmptyPageData());
+                this.writePage(newPage);
+            }
+        }
+        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
+        try {
+            page.insertTuple(t);
+        } catch (DbException e) { // 如果当前页面已满
+            HeapPageId newPageId = new HeapPageId(pid.getTableId(), pid.getPageNumber() + 1); // 构造新的pageId
+            page = new HeapPage(newPageId, HeapPage.createEmptyPageData());  // 构造新的page
+            page.insertTuple(t);  // 将tuple重新插入新page
+        }
         return Arrays.asList(page);
     }
 
