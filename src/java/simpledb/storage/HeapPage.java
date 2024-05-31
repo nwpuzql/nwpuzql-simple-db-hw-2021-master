@@ -28,6 +28,8 @@ public class HeapPage implements Page {
     final int numSlots;
     private boolean dirty;
     private TransactionId tid;
+    private int nextFreePageNo;
+    private int emptySlotNum;
 
     byte[] oldData;
     private final Byte oldDataLock = (byte) 0;
@@ -54,6 +56,13 @@ public class HeapPage implements Page {
         this.td = Database.getCatalog().getTupleDesc(id.getTableId());
         this.numSlots = getNumTuples();
         this.dirty = false;
+        this.emptySlotNum = getNumTuples();
+
+        // 头插法将页面插入到空闲链中
+//        HeapFile file = (HeapFile) Database.getCatalog().getDatabaseFile(this.pid.getTableId());
+//        this.nextFreePageNo = file.firstFreePageNo;
+//        file.firstFreePageNo = this.pid.getPageNumber();
+
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream(data));
 
         // allocate and read the header slots of this page
@@ -271,6 +280,7 @@ public class HeapPage implements Page {
             throw new DbException("tuple is not on this page, or tuple slot is already empty.");
         }
         markSlotUsed(slotNum, false);  // 设置槽位为空即删除
+//        this.emptySlotNum++;
     }
 
     /**
@@ -284,18 +294,19 @@ public class HeapPage implements Page {
     public void insertTuple(Tuple t) throws DbException {
         // some code goes here
         // not necessary for lab1
-        int slotPos = 0;  // 寻找第一个空闲的槽位位置
-        for (; slotPos < this.numSlots; slotPos++) {
-            if (!isSlotUsed(slotPos)) {
-                break;
-            }
-        }
+        int slotPos = -1;
         TupleDesc tupleTd = t.getTupleDesc();
-        if (slotPos == numSlots || !this.td.equals(tupleTd)) {
-            throw new DbException("the page is full (no empty slots) or tupleDesc is mismatch.");
+        if (!this.td.equals(tupleTd)) {
+            throw new DbException("tupleDesc is mismatch.");
+        }
+        if (this.isFull()) {
+            throw new DbException("the page is full (no empty slots)");
+        } else {
+            slotPos = this.getFirstEmptySlotNo();
         }
         tuples[slotPos] = t;
         markSlotUsed(slotPos, true);
+//        this.emptySlotNum--;
         t.setRecordId(new RecordId(this.pid, slotPos));  // 将tuple的rid更新
     }
 
@@ -316,7 +327,14 @@ public class HeapPage implements Page {
     public TransactionId isDirty() {
         // some code goes here
         // Not necessary for lab1
+        if (this.dirty) {
+            return this.tid;
+        }
         return null;
+    }
+
+    public boolean isFull() {
+        return this.getNumEmptySlots() == 0;
     }
 
     /**
@@ -331,6 +349,17 @@ public class HeapPage implements Page {
             }
         }
         return emptySlots;
+//        return this.emptySlotNum;
+    }
+
+    private int getFirstEmptySlotNo() {
+        int slotPos = 0;  // 寻找第一个空闲的槽位位置
+        for (; slotPos < this.numSlots; slotPos++) {
+            if (!isSlotUsed(slotPos)) {
+                break;
+            }
+        }
+        return slotPos;
     }
 
     /**

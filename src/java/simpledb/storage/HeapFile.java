@@ -24,6 +24,7 @@ public class HeapFile implements DbFile {
 
     private File file;
     private TupleDesc tupleDesc;
+    public int firstFreePageNo;
 
     /**
      * Constructs a heap file backed by the specified file.
@@ -35,7 +36,7 @@ public class HeapFile implements DbFile {
         // some code goes here
         this.file = f;
         this.tupleDesc = td;
-
+        this.firstFreePageNo = -1;
     }
 
     /**
@@ -159,31 +160,38 @@ public class HeapFile implements DbFile {
         return (int) (fileSize + pageSize - 1) / pageSize;
     }
 
+    /*
+     * 只有在无可用页面的情况下，调用此函数进行新增页面
+     */
+    private HeapPageId addPage() throws IOException {
+        HeapPageId newPid = new HeapPageId(this.getId(), this.numPages());
+        Page newPage = new HeapPage(newPid, HeapPage.createEmptyPageData());
+        this.writePage(newPage);
+        return newPid;
+    }
+
     // see DbFile.java for javadocs
     public List<Page> insertTuple(TransactionId tid, Tuple t)
             throws DbException, IOException, TransactionAbortedException {
         // some code goes here
         // not necessary for lab1
         RecordId rid = t.getRecordId();
-        int pageNo = rid.getPageId().getPageNumber();
-        PageId pid = new HeapPageId(this.getId(), pageNo);
         HeapPageId newPid = null;
-        t.setRecordId(new RecordId(pid, rid.getTupleNumber()));  // 重新设置tuple的tableID为本文件的ID
-        // todo 如果tuple要插入的页面不存在，构造一个新页面
-        if (this.numPages() < pageNo) {
-            for (int i = this.numPages(); i <= pageNo; i++) {
-                newPid = new HeapPageId(this.getId(), i);
-                Page newPage = new HeapPage(newPid, HeapPage.createEmptyPageData());
-                this.writePage(newPage);
-            }
+        int freePageNo = this.firstFreePageNo;
+        if (freePageNo != -1) {
+            newPid = new HeapPageId(this.getId(), freePageNo);
+        } else {
+            newPid = this.addPage();
         }
+        t.setRecordId(new RecordId(newPid, rid.getTupleNumber()));  // 重新设置tuple的tableID
         HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
         try {
             page.insertTuple(t);
-        } catch (DbException e) { // 如果当前页面已满
-            HeapPageId newPageId = new HeapPageId(pid.getTableId(), pid.getPageNumber() + 1); // 构造新的pageId
-            page = new HeapPage(newPageId, HeapPage.createEmptyPageData());  // 构造新的page
-            page.insertTuple(t);  // 将tuple重新插入新page
+        } catch (DbException e) {  // 如果出现页面已满的情况
+            newPid = this.addPage();
+            t.setRecordId(new RecordId(newPid, rid.getTupleNumber()));  // 重新设置tuple的tableID
+            page = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
+            page.insertTuple(t);
         }
         return Arrays.asList(page);
     }
@@ -212,22 +220,20 @@ public class HeapFile implements DbFile {
             private final int numPage = numPages();
             private int pageNo = 0;
             private PageId pid = null;
-            private Iterator<Tuple> it = null;
+            private Iterator<Tuple> it = null;   // 页面的iterator
 
             @Override
             protected Tuple readNext() throws DbException, TransactionAbortedException {
                 if (it == null) return null;
-                if (it.hasNext()) {
-                    return it.next();
+                while (!it.hasNext()) {  //
+                    if (pageNo < numPage - 1) {
+                        pageNo++;
+                        open();
+                    } else {
+                        return null;
+                    }
                 }
-                // 当前page的it已经到尾，尝试换下一个page
-                if (pageNo < numPage - 1) {
-                    pageNo++;
-                    open();
-                    return it.next();
-                }
-                // pageNo到尾
-                return null;
+                return it.next();
             }
 
             @Override

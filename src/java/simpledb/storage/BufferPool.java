@@ -3,16 +3,15 @@ package simpledb.storage;
 import simpledb.common.Database;
 import simpledb.common.Permissions;
 import simpledb.common.DbException;
-import simpledb.common.DeadlockException;
 import simpledb.transaction.TransactionAbortedException;
 import simpledb.transaction.TransactionId;
 
 import java.io.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * BufferPool manages the reading and writing of pages into memory from
@@ -46,6 +45,10 @@ public class BufferPool {
     private Map<PageId, TransactionId> transactions;
     private Map<PageId, Permissions> permissions;
 
+    // LRU算法淘汰页的数据结构
+    private List<PageId> LRUQueue;     // 按使用时间远近排列
+    private HashMap<PageId, Integer> indexHash;  // 为了快捷查找索引的位置设置的hash表（PageId->index）
+
     /**
      * Creates a BufferPool that caches up to numPages pages.
      *
@@ -55,6 +58,8 @@ public class BufferPool {
         // some code goes here
         BufferPool.numPages = numPages;
         this.pages = new HashMap<PageId, Page>();
+        this.LRUQueue = new ArrayList<>();
+        this.indexHash = new HashMap<>();
     }
 
     public static int getPageSize() {
@@ -92,11 +97,17 @@ public class BufferPool {
         Page page = pages.get(pid);
         // 页面在缓冲池中
         if (page != null) {
+            int index = indexHash.get(pid);               // 获取队列索引
+            LRUQueue.remove(index);                       // 从索引删除pid
+            LRUQueue.add(pid);                            // 从队尾重新插入页面号
+            indexHash.put(pid, LRUQueue.size() - 1);      // 更新索引hash
             return page;
         }
         // 页面不在缓冲池中,从HeapFile读取page
         page = Database.getCatalog().getDatabaseFile(pid.getTableId()).readPage(pid);
         if (pages.size() < pageSize) {
+            LRUQueue.add(pid);                       // 从队尾插入
+            indexHash.put(pid, LRUQueue.size() -1);  // 更新索引hash
             pages.put(pid, page);
             return page;
         } else {
@@ -175,6 +186,9 @@ public class BufferPool {
             if (this.pages.size() == numPages) {  // 检查当前缓冲池是否已满
                 this.evictPage();                 // 如果已满，则写回一页
             }
+            PageId pid = page.getId();
+            LRUQueue.add(pid);                       // 从队尾插入
+            indexHash.put(pid, LRUQueue.size() -1);  // 更新索引hash
             this.pages.put(page.getId(), page);   // 将新页加入缓冲池
         }
     }
@@ -205,6 +219,8 @@ public class BufferPool {
             if (this.pages.size() == numPages) {           // 检查当前缓冲池是否已满
                 this.evictPage();                          // 如果已满，则写回一页
             }
+            LRUQueue.add(pid);                       // 从队尾插入
+            indexHash.put(pid, LRUQueue.size() -1);  // 更新索引hash
             this.pages.put(page.getId(), page);             // 将新页加入缓冲池
         }
     }
@@ -234,6 +250,10 @@ public class BufferPool {
     public synchronized void discardPage(PageId pid) {
         // some code goes here
         // not necessary for lab1
+
+        // 删除LRU，hash，page队列
+        int index = indexHash.get(pid);
+        LRUQueue.remove(index);
         this.pages.remove(pid);
     }
 
@@ -245,8 +265,17 @@ public class BufferPool {
     private synchronized void flushPage(PageId pid) throws IOException {
         // some code goes here
         // not necessary for lab1
+
+        // 将页面写回disk，同时标记重置dirty bit
+        Page page = pages.get(pid);
+        page.markDirty(false, new TransactionId());
         DbFile file = Database.getCatalog().getDatabaseFile(pid.getTableId());
         file.writePage(pages.get(pid));
+
+        // 删除LRU，hash，page队列
+        int index = indexHash.get(pid);
+        LRUQueue.remove(index);
+        this.pages.remove(pid);
     }
 
     /**
@@ -264,6 +293,11 @@ public class BufferPool {
     private synchronized void evictPage() throws DbException {
         // some code goes here
         // not necessary for lab1
-
+        PageId pid = LRUQueue.get(0);
+        try {
+            flushPage(pid);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
