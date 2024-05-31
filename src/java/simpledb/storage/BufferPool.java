@@ -10,6 +10,7 @@ import simpledb.transaction.TransactionId;
 import java.io.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -41,9 +42,9 @@ public class BufferPool {
 
     private static int numPages = DEFAULT_PAGES;
 
-    Map<PageId, Page> pages;
-    Map<PageId, TransactionId> transactions;
-    Map<PageId, Permissions> permissions;
+    private Map<PageId, Page> pages;
+    private Map<PageId, TransactionId> transactions;
+    private Map<PageId, Permissions> permissions;
 
     /**
      * Creates a BufferPool that caches up to numPages pages.
@@ -163,10 +164,19 @@ public class BufferPool {
      * @param tableId the table to add the tuple to
      * @param t       the tuple to add
      */
-    public void insertTuple(TransactionId tid, int tableId, Tuple t)
-            throws DbException, IOException, TransactionAbortedException {
+    public void insertTuple(TransactionId tid, int tableId, Tuple t)        // 上层的接口，统一通过调用缓冲池这个方法来插入tuple
+            throws DbException, IOException, TransactionAbortedException {  // 内部获取DBFile，通过其insertTuple方法插入
         // some code goes here
         // not necessary for lab1
+        DbFile file = Database.getCatalog().getDatabaseFile(tableId);
+        List<Page> dirtyPages = file.insertTuple(tid, t);
+        for (Page page : dirtyPages) {            // 对于插入操作影响的每一页
+            page.markDirty(true, tid);       // 更新dirty位
+            if (this.pages.size() == numPages) {  // 检查当前缓冲池是否已满
+                this.evictPage();                 // 如果已满，则写回一页
+            }
+            this.pages.put(page.getId(), page);   // 将新页加入缓冲池
+        }
     }
 
     /**
@@ -186,6 +196,21 @@ public class BufferPool {
             throws DbException, IOException, TransactionAbortedException {
         // some code goes here
         // not necessary for lab1
+        PageId pid = t.getRecordId().getPageId();
+        int tableId = pid.getTableId();
+        DbFile file = Database.getCatalog().getDatabaseFile(tableId);
+        if (this.pages.containsKey(pid)) {
+            HeapPage page = (HeapPage) pages.get(pid);
+            page.deleteTuple(t);                           // 将tuple从缓冲池删除
+        }
+        List<Page> dirtyPages = file.deleteTuple(tid, t);  // 将tuple从表文件中删除
+        for (Page page : dirtyPages) {                     // 对于删除操作影响的每一页
+            page.markDirty(true, tid);               // 更新dirty位
+            if (this.pages.size() == numPages) {           // 检查当前缓冲池是否已满
+                this.evictPage();                          // 如果已满，则写回一页
+            }
+            this.pages.put(page.getId(), page);             // 将新页加入缓冲池
+        }
     }
 
     /**

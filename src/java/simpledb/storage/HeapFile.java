@@ -138,17 +138,21 @@ public class HeapFile implements DbFile {
         // not necessary for lab1
         RecordId rid = t.getRecordId();
         PageId pid = rid.getPageId();
-        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid ,pid, Permissions.READ_WRITE);
+        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid, pid, Permissions.READ_WRITE);
         page.insertTuple(t);
-        return null;
+        return Arrays.asList(page);
     }
 
     // see DbFile.java for javadocs
     public ArrayList<Page> deleteTuple(TransactionId tid, Tuple t) throws DbException,
             TransactionAbortedException {
         // some code goes here
-        return null;
         // not necessary for lab1
+        RecordId rid = t.getRecordId();
+        PageId pid = rid.getPageId();
+        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid, pid, Permissions.READ_WRITE);
+        page.deleteTuple(t);
+        return new ArrayList<Page>(Arrays.asList(page));
     }
 
     public Iterator<Tuple> getEachPageIt(TransactionId tid, PageId pid) throws TransactionAbortedException, DbException {
