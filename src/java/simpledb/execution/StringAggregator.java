@@ -61,7 +61,12 @@ public class StringAggregator implements Aggregator {
      */
     public void mergeTupleIntoGroup(Tuple tup) {
         // some code goes here
-        Field gbf = tup.getField(this.gbfield);
+        Field gbf = null;
+        if (this.gbfield == NO_GROUPING && type == null) {
+            gbf = new IntField(Integer.MIN_VALUE);  // 使用int最小值表示无gbf
+        } else {
+            gbf = tup.getField(this.gbfield);
+        }
         Field af = tup.getField(this.afield);
         if (!aggregates.containsKey(gbf)) {
             aggregates.put(gbf, 1);

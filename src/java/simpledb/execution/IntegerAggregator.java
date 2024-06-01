@@ -24,7 +24,13 @@ public class IntegerAggregator implements Aggregator {
     private int afield;
     private Op op;
     private Map<Field, Integer> aggregates;
+    /* 使用cnt计算求平均会存在很大的误差
+     * private Map<Field, Integer> cnt;  // 只在avg的时候使用，用以记录每组的个数
+     * 改用前n个数的sum
+     * todo 可能还存在sum超出int范围的问题
+     */
     private Map<Field, Integer> cnt;  // 只在avg的时候使用，用以记录每组的个数
+    private Map<Field, Integer> sum;  // 只在avg的时候使用，用以记录每组的之前的总和
     public TupleDesc td = null;
 
     /**
@@ -45,6 +51,7 @@ public class IntegerAggregator implements Aggregator {
         this.afield = afield;
         this.op = what;
         this.aggregates = new HashMap<Field, Integer>();
+        this.sum = new HashMap<Field, Integer>();
         this.cnt = new HashMap<Field, Integer>();
         if (gbfield == NO_GROUPING && type == null) {  // 没有group by子句，tuple和tupleDesc都只有一个字段
             td = new TupleDesc(new Type[]{Type.INT_TYPE});
@@ -61,13 +68,25 @@ public class IntegerAggregator implements Aggregator {
      */
     public void mergeTupleIntoGroup(Tuple tup) {
         // some code goes here
-        Field gbf = tup.getField(this.gbfield);
+        Field gbf = null;
+        if (this.gbfield == NO_GROUPING && type == null) {
+            gbf = new IntField(Integer.MIN_VALUE);  // 使用int最小值表示无gbf
+        } else {
+            gbf = tup.getField(this.gbfield);
+        }
         Field af = tup.getField(this.afield);
         int newValue = ((IntField) af).getValue();
-        if (!aggregates.containsKey(gbf)) {
-            aggregates.put(gbf, newValue);
-            cnt.put(gbf, 1);
-        } else {
+        if (!aggregates.containsKey(gbf)) {  // 第一个元素加入的情况
+            if (this.op == Op.COUNT) {       // op==count的情况
+                aggregates.put(gbf, 1);
+            } else if (this.op == Op.AVG) {  // op==avg的情况
+                aggregates.put(gbf, newValue);
+                sum.put(gbf, newValue);
+                cnt.put(gbf, 1);
+            } else {                        // op是其他的情况
+                aggregates.put(gbf, newValue);
+            }
+        } else {                            // 后面的元素加入的情况
             int aRes = aggregates.get(gbf);
             switch (this.op) {
                 case MIN:
@@ -85,10 +104,12 @@ public class IntegerAggregator implements Aggregator {
                     aggregates.put(gbf, newValue);
                     break;
                 case AVG:
-                    int n = cnt.get(gbf);  // 当前组的个数
-                    newValue = (n * aRes + newValue) / (n + 1);
-                    aggregates.put(gbf, newValue);
-                    cnt.put(gbf, ++n);  // 组个数+1
+                    int preSum = sum.get(gbf);        // 之前的总和
+                    int n = cnt.get(gbf);             // 之前每组的个数
+                    sum.put(gbf, preSum + newValue);  // 总和更新
+                    cnt.put(gbf, n + 1);              // 更新组个数
+                    newValue = (preSum + newValue) / (n + 1);
+                    aggregates.put(gbf, newValue);    // 平均数更新
                     break;
                 case COUNT:
                     newValue = aRes + 1;
@@ -98,8 +119,6 @@ public class IntegerAggregator implements Aggregator {
                     throw new IllegalStateException("unknown op: " + this.op);
             }
         }
-
-
     }
 
     /**

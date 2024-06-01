@@ -46,15 +46,19 @@ public class Aggregate extends Operator {
         this.op = aop;
         TupleDesc td = child.getTupleDesc();
         Type aType = td.getFieldType(afield);
-        Type gbType = td.getFieldType(gfield);
-
+        Type gbType = null;
+        if (gbfield != Aggregator.NO_GROUPING) {
+            gbType = td.getFieldType(gbfield);
+        }
         // 根据聚合的列的类型（int/string）来选择构造函数
         if (aType == Type.INT_TYPE) {
             aggregator = new IntegerAggregator(gfield, gbType, afield, aop);
         } else if (aType == Type.STRING_TYPE) {
             aggregator = new StringAggregator(gfield, gbType, afield, aop);
         }
+
         try {
+            child.open();
             while (child.hasNext()) {
                 aggregator.mergeTupleIntoGroup(child.next());
             }

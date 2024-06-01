@@ -59,7 +59,7 @@ public class HeapPage implements Page {
         this.emptySlotNum = getNumTuples();
 
         // 头插法将页面插入到空闲链中
-//        HeapFile file = (HeapFile) Database.getCatalog().getDatabaseFile(this.pid.getTableId());
+        DbFile file = (HeapFile) Database.getCatalog().getDatabaseFile(this.pid.getTableId());
 //        this.nextFreePageNo = file.firstFreePageNo;
 //        file.firstFreePageNo = this.pid.getPageNumber();
 
