@@ -98,7 +98,7 @@ public class BufferPool {
         }
         // 页面不在缓冲池中,从HeapFile读取page
         page = Database.getCatalog().getDatabaseFile(pid.getTableId()).readPage(pid);
-        if (pages.size() == pageSize) {  // 缓冲池已满，驱逐页面
+        if (pages.size() == numPages) {  // 缓冲池已满，驱逐页面
             this.evictPage();
         }
         LRUQueue.add(pid);          // 从队尾插入
