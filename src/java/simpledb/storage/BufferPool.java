@@ -44,6 +44,7 @@ public class BufferPool {
 
     // LRU算法淘汰页的数据结构
     private List<PageId> LRUQueue;     // 按使用时间远近排列
+
     /**
      * Creates a BufferPool that caches up to numPages pages.
      *
@@ -91,19 +92,18 @@ public class BufferPool {
         Page page = pages.get(pid);
         // 页面在缓冲池中
         if (page != null) {
-            LRUQueue.remove(pid);                         // 删除pid
-            LRUQueue.add(pid);                            // 从队尾重新插入页面号
+            LRUQueue.remove(pid);       // 删除pid
+            LRUQueue.add(pid);          // 从队尾重新插入页面号
             return page;
         }
         // 页面不在缓冲池中,从HeapFile读取page
         page = Database.getCatalog().getDatabaseFile(pid.getTableId()).readPage(pid);
-        if (pages.size() < pageSize) {
-            LRUQueue.add(pid);                       // 从队尾插入
-            pages.put(pid, page);
-            return page;
-        } else {
-            throw new DbException("the page is full and there is no implemented evict method!");
+        if (pages.size() == pageSize) {  // 缓冲池已满，驱逐页面
+            this.evictPage();
         }
+        LRUQueue.add(pid);          // 从队尾插入
+        pages.put(pid, page);
+        return page;
     }
 
     /**
@@ -254,11 +254,13 @@ public class BufferPool {
         // some code goes here
         // not necessary for lab1
 
-        // 将页面写回disk，同时标记重置dirty bit
+        // 将脏页面写回disk，同时标记重置dirty bit
         Page page = pages.get(pid);
-        page.markDirty(false, new TransactionId());
-        DbFile file = Database.getCatalog().getDatabaseFile(pid.getTableId());
-        file.writePage(pages.get(pid));
+        if (page.isDirty() != null) {
+            page.markDirty(false, new TransactionId());
+            DbFile file = Database.getCatalog().getDatabaseFile(pid.getTableId());
+            file.writePage(pages.get(pid));
+        }
 
         // 删除LRU，hash，page队列
         LRUQueue.remove(pid);
@@ -280,7 +282,7 @@ public class BufferPool {
     private synchronized void evictPage() throws DbException {
         // some code goes here
         // not necessary for lab1
-        PageId pid = LRUQueue.get(0);
+        PageId pid = LRUQueue.get(0);  // 驱逐最久未使用的页面
         try {
             flushPage(pid);
         } catch (IOException e) {
