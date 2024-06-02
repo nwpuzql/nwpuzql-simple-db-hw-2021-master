@@ -8,10 +8,7 @@ import simpledb.transaction.TransactionId;
 
 import java.io.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * BufferPool manages the reading and writing of pages into memory from
@@ -47,8 +44,6 @@ public class BufferPool {
 
     // LRU算法淘汰页的数据结构
     private List<PageId> LRUQueue;     // 按使用时间远近排列
-    private HashMap<PageId, Integer> indexHash;  // 为了快捷查找索引的位置设置的hash表（PageId->index）
-
     /**
      * Creates a BufferPool that caches up to numPages pages.
      *
@@ -59,7 +54,6 @@ public class BufferPool {
         BufferPool.numPages = numPages;
         this.pages = new HashMap<PageId, Page>();
         this.LRUQueue = new ArrayList<>();
-        this.indexHash = new HashMap<>();
     }
 
     public static int getPageSize() {
@@ -97,17 +91,14 @@ public class BufferPool {
         Page page = pages.get(pid);
         // 页面在缓冲池中
         if (page != null) {
-            int index = indexHash.get(pid);               // 获取队列索引
-            LRUQueue.remove(index);                       // 从索引删除pid
+            LRUQueue.remove(pid);                         // 删除pid
             LRUQueue.add(pid);                            // 从队尾重新插入页面号
-            indexHash.put(pid, LRUQueue.size() - 1);      // 更新索引hash
             return page;
         }
         // 页面不在缓冲池中,从HeapFile读取page
         page = Database.getCatalog().getDatabaseFile(pid.getTableId()).readPage(pid);
         if (pages.size() < pageSize) {
             LRUQueue.add(pid);                       // 从队尾插入
-            indexHash.put(pid, LRUQueue.size() -1);  // 更新索引hash
             pages.put(pid, page);
             return page;
         } else {
@@ -188,7 +179,6 @@ public class BufferPool {
             }
             PageId pid = page.getId();
             LRUQueue.add(pid);                       // 从队尾插入
-            indexHash.put(pid, LRUQueue.size() -1);  // 更新索引hash
             this.pages.put(page.getId(), page);   // 将新页加入缓冲池
         }
     }
@@ -220,7 +210,6 @@ public class BufferPool {
                 this.evictPage();                          // 如果已满，则写回一页
             }
             LRUQueue.add(pid);                       // 从队尾插入
-            indexHash.put(pid, LRUQueue.size() -1);  // 更新索引hash
             this.pages.put(page.getId(), page);             // 将新页加入缓冲池
         }
     }
@@ -231,9 +220,9 @@ public class BufferPool {
      * break simpledb if running in NO STEAL mode.
      */
     public synchronized void flushAllPages() throws IOException {
-        // some code goes here
-        // not necessary for lab1
-        for (PageId pid : pages.keySet()) {
+        // 创建pages的keySet的副本
+        Set<PageId> pageIds = new HashSet<>(pages.keySet());
+        for (PageId pid : pageIds) {
             flushPage(pid);
         }
     }
@@ -251,9 +240,8 @@ public class BufferPool {
         // some code goes here
         // not necessary for lab1
 
-        // 删除LRU，hash，page队列
-        int index = indexHash.get(pid);
-        LRUQueue.remove(index);
+        // 删除LRU队列，page列表
+        LRUQueue.remove(pid);
         this.pages.remove(pid);
     }
 
@@ -273,8 +261,7 @@ public class BufferPool {
         file.writePage(pages.get(pid));
 
         // 删除LRU，hash，page队列
-        int index = indexHash.get(pid);
-        LRUQueue.remove(index);
+        LRUQueue.remove(pid);
         this.pages.remove(pid);
     }
 

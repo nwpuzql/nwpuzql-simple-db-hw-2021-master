@@ -24,6 +24,7 @@ public class Tuple implements Serializable {
     public Tuple(TupleDesc td) {
         this.fields = new ArrayList<Field>();
         this.tupleDesc = td;
+//        this.recordId = new RecordId(new HeapPageId(Integer.MIN_VALUE, Integer.MIN_VALUE), Integer.MIN_VALUE);
         // some code goes here
     }
 

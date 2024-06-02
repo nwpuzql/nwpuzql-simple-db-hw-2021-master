@@ -28,8 +28,7 @@ public class HeapPage implements Page {
     final int numSlots;
     private boolean dirty;
     private TransactionId tid;
-    private int nextFreePageNo;
-    private int emptySlotNum;
+//    private int nextFreePageNo;
 
     byte[] oldData;
     private final Byte oldDataLock = (byte) 0;
@@ -56,10 +55,10 @@ public class HeapPage implements Page {
         this.td = Database.getCatalog().getTupleDesc(id.getTableId());
         this.numSlots = getNumTuples();
         this.dirty = false;
-        this.emptySlotNum = getNumTuples();
 
-        // 头插法将页面插入到空闲链中
-        DbFile file = (HeapFile) Database.getCatalog().getDatabaseFile(this.pid.getTableId());
+        // todo 头歌系统上限制修改，无法实现空闲页面链表
+//        // 头插法将页面插入到空闲链中
+//        HeapFile file = (HeapFile) Database.getCatalog().getDatabaseFile(this.pid.getTableId());
 //        this.nextFreePageNo = file.firstFreePageNo;
 //        file.firstFreePageNo = this.pid.getPageNumber();
 
@@ -352,7 +351,7 @@ public class HeapPage implements Page {
 //        return this.emptySlotNum;
     }
 
-    private int getFirstEmptySlotNo() {
+    public int getFirstEmptySlotNo() {
         int slotPos = 0;  // 寻找第一个空闲的槽位位置
         for (; slotPos < this.numSlots; slotPos++) {
             if (!isSlotUsed(slotPos)) {

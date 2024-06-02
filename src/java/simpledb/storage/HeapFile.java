@@ -24,7 +24,7 @@ public class HeapFile implements DbFile {
 
     private File file;
     private TupleDesc tupleDesc;
-    public int firstFreePageNo;
+//    public int firstFreePageNo;
 
     /**
      * Constructs a heap file backed by the specified file.
@@ -36,7 +36,7 @@ public class HeapFile implements DbFile {
         // some code goes here
         this.file = f;
         this.tupleDesc = td;
-        this.firstFreePageNo = -1;
+//        this.firstFreePageNo = -1;
     }
 
     /**
@@ -177,22 +177,20 @@ public class HeapFile implements DbFile {
         // not necessary for lab1
         RecordId rid = t.getRecordId();
         HeapPageId newPid = null;
-        int freePageNo = this.firstFreePageNo;
-        if (freePageNo != -1) {
-            newPid = new HeapPageId(this.getId(), freePageNo);
-        } else {
-            newPid = this.addPage();
+        HeapPage page = null;
+        for (int i = 0; i < numPages(); i++) {  // 由于头歌不允许更改DbFile类，只能从头遍历每一页是否有空槽位
+            newPid = new HeapPageId(this.getId(), i);
+            page = (HeapPage) Database.getBufferPool().getPage(tid, newPid, Permissions.READ_WRITE);
+            if (page.getFirstEmptySlotNo() != page.numSlots) {  // 当前遍历的页面还有空闲
+                t.setRecordId(new RecordId(newPid, Integer.MIN_VALUE));
+                page.insertTuple(t);
+                return Arrays.asList(page);
+            }
         }
-        t.setRecordId(new RecordId(newPid, rid.getTupleNumber()));  // 重新设置tuple的tableID
-        HeapPage page = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
-        try {
-            page.insertTuple(t);
-        } catch (DbException e) {  // 如果出现页面已满的情况
-            newPid = this.addPage();
-            t.setRecordId(new RecordId(newPid, rid.getTupleNumber()));  // 重新设置tuple的tableID
-            page = (HeapPage) Database.getBufferPool().getPage(tid, t.getRecordId().getPageId(), Permissions.READ_WRITE);
-            page.insertTuple(t);
-        }
+        newPid = this.addPage();
+        page = (HeapPage) Database.getBufferPool().getPage(tid, newPid, Permissions.READ_ONLY);
+        t.setRecordId(new RecordId(newPid, rid.getTupleNumber()));
+        page.insertTuple(t);
         return Arrays.asList(page);
     }
 

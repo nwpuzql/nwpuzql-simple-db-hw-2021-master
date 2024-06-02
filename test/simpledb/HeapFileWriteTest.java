@@ -39,6 +39,9 @@ public class HeapFileWriteTest extends TestUtil.CreateHeapFile {
     public void addTuple() throws Exception {
         // we should be able to add 504 tuples on an empty page.
         for (int i = 0; i < 504; ++i) {
+            if (i == 251)  {
+                int j = 0;
+            }
             empty.insertTuple(tid, Utility.getHeapTuple(i, 2));
             assertEquals(1, empty.numPages());
         }
