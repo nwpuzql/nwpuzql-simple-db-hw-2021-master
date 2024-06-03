@@ -118,11 +118,11 @@ public class TableStatsTest extends SimpleDbTestBase {
 	@Test public void estimateSelectivityTest() {
 		final int maxCellVal = 32;	// Tuple values are randomized between 0 and this number
 		
-		final Field aboveMax = new IntField(maxCellVal + 10);
-		final Field atMax = new IntField(maxCellVal);
-		final Field halfMaxMin = new IntField(maxCellVal/2);
-		final Field atMin = new IntField(0);
-		final Field belowMin = new IntField(-10);
+		final Field aboveMax = new IntField(maxCellVal + 10);  // 42
+		final Field atMax = new IntField(maxCellVal);            // 32
+		final Field halfMaxMin = new IntField(maxCellVal/2);  // 16
+		final Field atMin = new IntField(0);                  // 0
+		final Field belowMin = new IntField(-10);             // -10
 		
 		TableStats s = new TableStats(this.tableId, IO_COST);
 		

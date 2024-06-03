@@ -23,6 +23,7 @@ public class Aggregate extends Operator {
     private int gbfield;
     private Aggregator.Op op;
     private Aggregator aggregator;
+    private TupleDesc td;
     OpIterator it;  // 这个算子全局的迭代器，来自于聚合器
 
     /**
@@ -50,21 +51,26 @@ public class Aggregate extends Operator {
         if (gbfield != Aggregator.NO_GROUPING) {
             gbType = td.getFieldType(gbfield);
         }
-        // 根据聚合的列的类型（int/string）来选择构造函数
+
+        // 根据聚合的列的类型（int/string）来选择聚合器构造函数
         if (aType == Type.INT_TYPE) {
             aggregator = new IntegerAggregator(gfield, gbType, afield, aop);
         } else if (aType == Type.STRING_TYPE) {
             aggregator = new StringAggregator(gfield, gbType, afield, aop);
         }
 
-        try {
-            child.open();
-            while (child.hasNext()) {
-                aggregator.mergeTupleIntoGroup(child.next());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        // 根据有无group by，构造tupleDesc
+        Type[] typeArr = null;
+        String[] fieldNameArr = null;
+        String aFieldName = String.format("aggName(%s) (%s)", op.toString(), aggregateFieldName());
+        if (!hasGroupBy()) {
+            typeArr = new Type[]{Type.INT_TYPE};
+            fieldNameArr = new String[]{aFieldName};
+        } else {
+            typeArr = new Type[]{gbType, Type.INT_TYPE};
+            fieldNameArr = new String[]{groupFieldName(), aFieldName};
         }
+        this.td = new TupleDesc(typeArr, fieldNameArr);
     }
 
     private boolean hasGroupBy() {
@@ -128,9 +134,12 @@ public class Aggregate extends Operator {
             TransactionAbortedException {
         // some code goes here
         child.open();
-        super.open();
+        while (child.hasNext()) {
+            aggregator.mergeTupleIntoGroup(child.next());
+        }
         it = aggregator.iterator();  // 实例化迭代器
         it.open();  // 打开迭代器
+        super.open();
     }
 
     /**
@@ -144,7 +153,7 @@ public class Aggregate extends Operator {
         // some code goes here
         if (it.hasNext()) {
             Tuple t = it.next();
-            t.resetTupleDesc(getTupleDesc());  // 重新设置td
+            t.resetTupleDesc(this.getTupleDesc());  // 重新设置td
             return t;
         }
         return null;
@@ -169,19 +178,7 @@ public class Aggregate extends Operator {
      */
     public TupleDesc getTupleDesc() {
         // some code goes here
-        Type[] typeArr = null;
-        String[] fieldNameArr = null;
-        String aFieldName = String.format("aggName(%s) (%s)", op.toString(), aggregateFieldName());
-        TupleDesc td = child.getTupleDesc();
-        if (!hasGroupBy()) {
-            typeArr = new Type[]{Type.INT_TYPE};
-            fieldNameArr = new String[]{aFieldName};
-        } else {
-            Type gbType = td.getFieldType(gbfield);
-            typeArr = new Type[]{gbType, Type.INT_TYPE};
-            fieldNameArr = new String[]{groupFieldName(), aFieldName};
-        }
-        return new TupleDesc(typeArr, fieldNameArr);
+        return this.td;
     }
 
     public void close() {
@@ -199,7 +196,9 @@ public class Aggregate extends Operator {
     @Override
     public void setChildren(OpIterator[] children) {
         // some code goes here
-        child = children[0];
+        if (this.child != children[0]) {
+            this.child = children[0];
+        }
     }
 
 }
