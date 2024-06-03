@@ -862,13 +862,15 @@ java.util.NoSuchElementException
 simpledb.optimizer.LogicalSubplanJoinNode
 simpledb.common.Database
 simpledb.ParsingException
+java.lang.Math
 javax.swing.WindowConstants
 java.util.HashSet
 java.util.HashMap
 java.lang.System
+simpledb.storage.HeapFile
 simpledb.storage.TupleDesc
-java.io.PrintStream
 java.lang.reflect.Constructor
+java.io.PrintStream
 javax.swing.JScrollPane
 simpledb.execution.Join
 simpledb.execution.JoinPredicate

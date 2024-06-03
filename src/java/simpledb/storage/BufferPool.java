@@ -262,7 +262,7 @@ public class BufferPool {
             file.writePage(pages.get(pid));
         }
 
-        // 删除LRU，hash，page队列
+        // 删除LRU，page队列
         LRUQueue.remove(pid);
         this.pages.remove(pid);
     }

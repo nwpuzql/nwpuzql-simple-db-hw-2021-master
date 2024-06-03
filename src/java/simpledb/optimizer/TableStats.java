@@ -157,7 +157,7 @@ public class TableStats {
      * 将选择概率与元组总数相乘
      *
      * @param selectivityFactor The selectivity of any predicates over the table
-     * @return The estimated cardinality of the scan with the specified
+     * @return The estimated cardinality of the scan with the specified,筛选之后的元组估计个数
      * selectivityFactor
      */
     public int estimateTableCardinality(double selectivityFactor) {
