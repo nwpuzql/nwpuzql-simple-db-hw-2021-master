@@ -3,6 +3,7 @@ package simpledb.storage;
 import simpledb.common.Database;
 import simpledb.common.Permissions;
 import simpledb.common.DbException;
+import simpledb.transaction.LockManager;
 import simpledb.transaction.TransactionAbortedException;
 import simpledb.transaction.TransactionId;
 
@@ -25,6 +26,8 @@ public class BufferPool {
     /**
      * Bytes per page, including header.
      */
+    public static LockManager lockManager;
+
     private static final int DEFAULT_PAGE_SIZE = 4096;
 
     private static int pageSize = DEFAULT_PAGE_SIZE;
@@ -89,6 +92,11 @@ public class BufferPool {
     public Page getPage(TransactionId tid, PageId pid, Permissions perm)
             throws TransactionAbortedException, DbException {
         // some code goes here
+        if (perm == Permissions.READ_ONLY) {
+            lockManager.acquireSharedLock(tid, pid);
+        } else if (perm == Permissions.READ_WRITE) {
+            lockManager.acquireSharedLock(tid, pid);
+        }
         Page page = pages.get(pid);
         // 页面在缓冲池中
         if (page != null) {
